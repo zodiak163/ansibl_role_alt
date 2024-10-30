@@ -1,0 +1,10 @@
+---
+rdp_users:
+  - name: user1
+    password: "defaultPassword1"
+  - name: user2
+    password: "defaultPassword2"
+  - name: user3
+    password: "defaultPassword3"
+  - name: user4
+    password: "defaultPassword4"

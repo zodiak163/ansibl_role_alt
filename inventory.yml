@@ -1,0 +1,6 @@
+all:
+  hosts:
+    serv:
+      ansible_host: 192.168.0.35
+      ansible_ssh_user: zodiak
+      

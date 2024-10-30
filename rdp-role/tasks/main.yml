@@ -1,0 +1,42 @@
+---
+#    - name: Обновляю ОСь
+#      apt_rpm:
+#        update_cache: yes
+#        uograde: dist
+        
+    
+    - name: Установка зависимостей судя из мануала
+      apt_rpm:
+        name:
+          - python3
+          - python3-module-yaml
+          - python3-module-jinja2
+          - python3-module-jsonlib
+        state: present
+
+    - name: Включение и запуск сервисов xrdp и xrdp-sesman
+      systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - xrdp
+        - xrdp-sesman
+
+    - name: Включение xrdp при загрузке
+      systemd:
+        name: xrdp
+        enabled: true
+        state: started
+    
+    - name: Добавление пользователя в группу tsusers
+      user:
+       name: "{{ item }}"
+       group: tsusers
+      loop: "{{ rdp_users | map(attribute='name') | list }}"
+
+    - name: Добавление пользователя в группу fuse
+      user:
+       name: "{{ item }}"
+       group: fuse
+      loop: "{{ rdp_users | map(attribute='name') | list }}"
